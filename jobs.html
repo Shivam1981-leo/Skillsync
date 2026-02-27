@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunities | ResumeLens Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="sidebar">
+        <h2>Resume<span>Lens</span></h2>
+        <a href="dashboard.html">📊 AI Analysis</a>
+        <a href="hackathons.html">🏆 Hackathons</a>
+        <a href="jobs.html" class="active">💼 Opportunities</a>
+        <a href="courses.html">📚 Upskilling</a>
+        <div class="premium-ad"><button class="premium-btn">✨ Upgrade to Pro</button></div>
+    </nav>
+
+    <main class="main-content">
+        
+        <div class="top-nav">
+            <h1>Recommended Jobs & Internships</h1>
+            
+            <div class="nav-actions">
+                <div class="profile-container" style="position: relative;">
+                    <div class="profile-icon" id="profile-btn" title="View Profile" style="cursor: pointer;">🧑‍💻</div>
+                    
+                    <div class="profile-dropdown" id="profile-dropdown">
+                        <div class="dropdown-header">
+                            <p class="drop-name">Alex Developer</p>
+                            <p class="drop-role">Software Engineer</p>
+                        </div>
+                        <hr>
+                        <a href="#">⚙️ Account Settings</a>
+                        <a href="#">📄 My Saved Resumes</a>
+                        <a href="#">💳 Subscription</a>
+                        <hr>
+                        <a href="login.html" class="logout-text">🚪 Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-top">
+            <div class="card fade-up delay-1" style="border-left: 4px solid var(--accent-green);">
+                <h3>Android App Developer Intern</h3>
+                <p style="color: var(--text-muted);">TechInnovate Solutions • Pune, Maharashtra (On-site)</p>
+                <ul class="data-list list-green">
+                    <li>Requires: Java, Android Studio, API Integration</li>
+                    <li>Match Score: 85% (Based on your profile)</li>
+                </ul>
+                <button class="btn-primary" style="margin-top: 10px;">Easy Apply</button>
+            </div>
+
+            <div class="card fade-up delay-2" style="border-left: 4px solid var(--accent);">
+                <h3>C++ Systems Engineer</h3>
+                <p style="color: var(--text-muted);">Global Finance Tech • Pune / Hybrid</p>
+                <ul class="data-list list-purple">
+                    <li>Requires: C++, Data Structures, Multi-threading</li>
+                    <li>Match Score: 72%</li>
+                </ul>
+                <button class="btn-primary" style="margin-top: 10px;">View Application</button>
+            </div>
+        </div>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html>

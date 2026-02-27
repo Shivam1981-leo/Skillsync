@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeLens Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <h2>ResumeLens</h2>
+            <nav>
+                <ul>
+                    <li class="active">Dashboard</li>
+                    <li>History</li>
+                    <li>Settings</li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Analysis Report: Backend Engineer</h1>
+                <input type="file" id="resume-upload" accept=".pdf" style="display: none;" />
+                <label for="resume-upload" class="btn-primary" style="margin-right: 15px; cursor: pointer;">Select
+                    PDF</label>
+
+                <button class="btn-primary" onclick="uploadResume()">Analyze Resume</button>
+            </header>
+            <div class="grid-layout">
+                <div class="card score-card">
+                    <h3>Overall Match</h3>
+                    <div class="score-ring">
+                        <span id="match-score">0%</span>
+                    </div>
+                    <p>Status: Strong Candidate</p>
+                </div>
+
+                <div class="card canvas-card">
+                    <h3>Skill Shape (Current vs Ideal)</h3>
+                    <canvas id="skillCanvas" width="300" height="200"></canvas>
+                    <p class="caption">Ideal profile (Teal) vs Your profile (White)</p>
+                </div>
+
+                <div class="card gap-card">
+                    <div class="list-section">
+                        <h3 class="text-green">Verified Skills</h3>
+                        <ul id="verified-list" class="skill-list"></ul>
+                    </div>
+                    <div class="list-section">
+                        <h3 class="text-red">Missing Requirements</h3>
+                        <ul id="missing-list" class="skill-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

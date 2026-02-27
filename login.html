@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | ResumeLens Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Specific layout overrides just to center the login box perfectly */
+        body { 
+            justify-content: center; 
+            align-items: center; 
+            /* Your animated mesh background from style.css will automatically play here! */
+        }
+        
+        .auth-box { 
+            width: 100%; 
+            max-width: 420px; 
+            padding: 40px; 
+            text-align: center;
+            /* Fade up animation on load */
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        .auth-box h2 { 
+            font-size: 2.2rem; 
+            margin-top: 0; 
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .auth-box h2 span { color: var(--accent); }
+        .auth-box p { color: var(--text-muted); margin-bottom: 30px; font-size: 0.95rem; }
+        
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: #cbd5e1; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
+        
+        .input-group input, .input-group select { 
+            width: 100%; 
+            padding: 14px; 
+            background: rgba(15, 23, 42, 0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            color: white; 
+            border-radius: 10px; 
+            box-sizing: border-box; 
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        /* The Premium Neon Glow on Focus */
+        .input-group input:focus, .input-group select:focus { 
+            outline: none; 
+            border-color: var(--accent); 
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); 
+            background: rgba(15, 23, 42, 0.9);
+        }
+        
+        .btn-full { width: 100%; padding: 16px; font-size: 1.1rem; margin-top: 10px; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+    <div class="card auth-box">
+        <h2>Resume<span>Lens</span></h2>
+        <p>Enter your details to calibrate your AI dashboard.</p>
+        
+        <form id="signup-form">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" placeholder="e.g., Alex Developer" required>
+            </div>
+
+            <div class="input-group">
+                <label>City / Location</label>
+                <input type="text" placeholder="e.g., Pune, Maharashtra" required>
+            </div>
+
+            <div class="input-group">
+                <label>Age</label>
+                <input type="number" placeholder="18" min="16" max="99" required>
+            </div>
+
+            <div class="input-group">
+                <label>Target Job Role</label>
+                <select required>
+                    <option value="" disabled selected>Select your path...</option>
+                    <option value="backend">Backend Engineer (C++/Java)</option>
+                    <option value="android">Android App Developer</option>
+                    <option value="data">Data Analyst</option>
+                    <option value="frontend">Frontend / Web Developer</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary btn-full">Enter Dashboard ✨</button>
+        </form>
+    </div>
+
+    <script>
+        // Smooth transition to the dashboard
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            // Change button text to show a slick loading state
+            const btn = document.querySelector('.btn-primary');
+            btn.innerHTML = "Initializing AI... ⏳";
+            btn.style.opacity = "0.8";
+            btn.style.transform = "scale(0.98)";
+
+            // Fake a small 0.8 second loading delay before redirecting to your beautiful dashboard
+            setTimeout(() => {
+                window.location.href = "dashboard.html"; 
+            }, 800);
+        });
+    </script>
+</body>
+</html>

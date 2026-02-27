@@ -1,0 +1,224 @@
+:root {
+    --bg-dark: #09090b;
+    --bg-card: rgba(24, 24, 27, 0.4);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #3b82f6;
+    --accent-glow: rgba(59, 130, 246, 0.5);
+    --accent-red: #ef4444;
+    --accent-green: #10b981;
+    --accent-purple: #8b5cf6;
+}
+
+body { 
+    margin: 0; 
+    font-family: 'Inter', -apple-system, sans-serif; 
+    color: var(--text-main); 
+    display: flex; 
+    height: 100vh; 
+    overflow: hidden; 
+    /* The Animated Mesh Background */
+    background: linear-gradient(-45deg, #09090b, #171033, #0f172a, #09090b);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Sidebar */
+.sidebar { width: 260px; background: #0f172a; display: flex; flex-direction: column; padding: 20px 0; border-right: 1px solid #1e293b; box-shadow: 5px 0 15px rgba(0,0,0,0.5); z-index: 10; }
+.sidebar h2 { color: var(--text-main); padding: 0 20px; margin-bottom: 30px; font-weight: 800; letter-spacing: 1px;}
+.sidebar h2 span { color: var(--accent); }
+.sidebar a { display: block; padding: 15px 20px; color: var(--text-muted); text-decoration: none; font-weight: 500; transition: all 0.3s ease; border-left: 3px solid transparent; }
+.sidebar a:hover, .sidebar a.active { background-color: #1e293b; color: var(--text-main); border-left: 3px solid var(--accent); }
+.premium-ad { margin-top: auto; padding: 20px; text-align: center; }
+.premium-btn { background: linear-gradient(135deg, #f59e0b, #ea580c); color: #fff; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4); }
+.premium-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(234, 88, 12, 0.6); }
+
+/* Main Content */
+.main-content { flex-grow: 1; padding: 40px; overflow-y: auto; background: radial-gradient(circle at top right, rgba(30, 27, 75, 0.5), transparent 40%); }
+.top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.top-nav h1 {
+    background: linear-gradient(to right, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0; font-size: 2rem; font-weight: 700;
+}
+.nav-actions { display: flex; align-items: center; gap: 20px; }
+
+/* Buttons & Inputs */
+.btn-primary { background: linear-gradient(135deg, var(--accent), #2563eb); color: #FFF; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px var(--accent-glow); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--accent-glow); filter: brightness(1.1); }
+.profile-icon { width: 45px; height: 45px; background: linear-gradient(135deg, #334155, #1e293b); border: 2px solid #475569; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: border-color 0.3s; }
+.profile-icon:hover { border-color: var(--accent); }
+
+/* Cards & Layout */
+.grid-top { display: grid; grid-template-columns: 1fr 2fr; gap: 25px; margin-bottom: 25px; }
+.grid-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+
+.card { 
+    background: var(--bg-card); 
+    backdrop-filter: blur(16px); 
+    border-radius: 16px; 
+    padding: 30px; 
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+    transition: transform 0.3s ease, border-color 0.3s ease; 
+    position: relative;
+    overflow: hidden; 
+}
+
+/* The invisible spotlight layer that follows the mouse */
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        800px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), 
+        rgba(59, 130, 246, 0.1), 
+        transparent 40%
+    );
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.card:hover::before { opacity: 1; }
+
+.card:hover { 
+    transform: translateY(-5px); 
+    border-color: rgba(255, 255, 255, 0.2); 
+}
+
+.card h3 { margin-top: 0; margin-bottom: 20px; font-size: 1.2rem; color: #e2e8f0; display: flex; align-items: center; gap: 10px; }
+
+/* The Score Ring */
+.score-container { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.circular-chart { display: block; margin: 10px auto; max-width: 150px; max-height: 150px; }
+.circle-bg { fill: none; stroke: #1e293b; stroke-width: 3.8; }
+.circle { fill: none; stroke-width: 3.8; stroke-linecap: round; transition: stroke-dasharray 1.5s ease-out; }
+.percentage { fill: #fff; font-family: 'Inter', sans-serif; font-size: 0.5em; text-anchor: middle; font-weight: bold; }
+.score-green .circle { stroke: var(--accent-green); filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6)); }
+
+/* Lists */
+.data-list { list-style: none; padding: 0; margin: 0; }
+.data-list li { background: rgba(255,255,255,0.03); padding: 12px 15px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid #475569; display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
+.list-green li { border-left-color: var(--accent-green); }
+.list-red li { border-left-color: var(--accent-red); }
+.list-purple li { border-left-color: var(--accent-purple); }
+
+/* Staggered Fade Up Animation */
+.fade-up { 
+    opacity: 0; 
+    transform: translateY(30px);
+    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+
+@keyframes slideUpFade { 
+    to { opacity: 1; transform: translateY(0); } 
+}
+/* --- NEW VISUALS: Neon Skill Badges --- */
+.badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.badge {
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    backdrop-filter: blur(5px);
+}
+
+.badge:hover {
+    transform: translateY(-2px);
+}
+
+.badge-green {
+    background: rgba(16, 185, 129, 0.1);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+}
+
+.badge-red {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+}
+
+/* Make sure the 5th card staggers in smoothly */
+.delay-5 { animation-delay: 0.5s; }
+/* --- PROFILE DROPDOWN MENU --- */
+.profile-dropdown {
+    position: absolute;
+    right: 0;
+    top: 60px; /* Positions it just below the icon */
+    width: 220px;
+    background: rgba(15, 23, 42, 0.85); /* Dark slate background */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 10px 0;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    
+    /* Animation defaults (Hidden) */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
+}
+
+/* The class JavaScript will toggle to show the menu */
+.profile-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header { padding: 10px 20px; }
+.drop-name { margin: 0; font-weight: 700; color: var(--text-main); font-size: 1rem; }
+.drop-role { margin: 5px 0 0 0; font-size: 0.8rem; color: var(--accent); }
+
+.profile-dropdown hr { 
+    border: 0; 
+    height: 1px; 
+    background: rgba(255, 255, 255, 0.08); 
+    margin: 8px 0; 
+}
+
+.profile-dropdown a { 
+    display: block; 
+    padding: 10px 20px; 
+    color: var(--text-muted); 
+    text-decoration: none; 
+    font-size: 0.9rem; 
+    transition: background 0.2s, color 0.2s; 
+}
+
+.profile-dropdown a:hover { 
+    background: rgba(255, 255, 255, 0.05); 
+    color: var(--text-main); 
+}
+
+.logout-text { color: var(--accent-red) !important; }
+.logout-text:hover { background: rgba(239, 68, 68, 0.15) !important; }

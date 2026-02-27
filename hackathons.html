@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hackathons | ResumeLens Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="sidebar">
+        <h2>Resume<span>Lens</span></h2>
+        <a href="dashboard.html">📊 AI Analysis</a>
+        <a href="hackathons.html" class="active">🏆 Hackathons</a>
+        <a href="jobs.html">💼 Opportunities</a>
+        <a href="courses.html">📚 Upskilling</a>
+        <div class="premium-ad"><button class="premium-btn">✨ Upgrade to Pro</button></div>
+    </nav>
+
+    <main class="main-content">
+        <div class="top-nav">
+            <h1>Active Hackathons</h1>
+            <div class="nav-actions">
+                <select id="company-filter" onchange="filterEvents()" style="padding: 12px; border-radius: 8px; background: var(--bg-card); color: white; border: 1px solid #3f3f46; font-family: 'Inter';">
+                    <option value="all">All Organizers</option>
+                    <option value="gov">Government of India</option>
+                    <option value="google">Google</option>
+                    <option value="meta">Meta</option>
+                </select>
+                <div class="profile-container" style="position: relative;">
+                    <div class="profile-icon" id="profile-btn" title="View Profile" style="cursor: pointer;">🧑‍💻</div>
+                    
+                    <div class="profile-dropdown" id="profile-dropdown">
+                        <div class="dropdown-header">
+                            <p class="drop-name">Alex Developer</p>
+                            <p class="drop-role">Software Engineer</p>
+                        </div>
+                        <hr>
+                        <a href="#">⚙️ Account Settings</a>
+                        <a href="#">📄 My Saved Resumes</a>
+                        <a href="#">💳 Subscription</a>
+                        <hr>
+                        <a href="login.html" class="logout-text">🚪 Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-bottom" id="hackathon-container">
+            <div class="card hack-card" data-company="gov">
+                <h3 style="color: var(--accent);">Smart India Hackathon (SIH)</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Govt. of India • Hardware & Software Edition</p>
+                <ul class="data-list list-purple"><li>Deadline: Approaching</li></ul>
+                <button class="btn-primary" style="width: 100%; margin-top: 15px;">Register Team</button>
+            </div>
+
+            <div class="card hack-card" data-company="google">
+                <h3 style="color: var(--accent-green);">Google Solution Challenge</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Google • Open to University Students</p>
+                <ul class="data-list list-green"><li>Focus: Android & AI</li></ul>
+                <button class="btn-primary" style="width: 100%; margin-top: 15px;">View Details</button>
+            </div>
+
+            <div class="card hack-card" data-company="meta">
+                <h3 style="color: var(--accent-purple);">Meta Hacker Cup</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Meta • Global Algorithmic Challenge</p>
+                <ul class="data-list list-purple"><li>Focus: Data Structures & Algorithms</li></ul>
+                <button class="btn-primary" style="width: 100%; margin-top: 15px;">Compete</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
