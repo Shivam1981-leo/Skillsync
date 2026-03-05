@@ -29,7 +29,7 @@ def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="#Gamerforlife123",   # 🔥 Replace with your MySQL password
+        password="",   # 🔥 Replace with your MySQL password
         database="resumelens"
     )
 STOPWORDS = {
