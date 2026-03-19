@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upskilling — SkillSync</title>
+    <link rel="stylesheet" href="static/style.css">
+    <style>
+        .course-card .provider { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; }
+        .course-card .desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+        .course-card .meta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+        .course-card .action-row { display: flex; gap: 10px; align-items: center; }
+        .course-card .rating { font-size: 0.8rem; color: var(--orange); font-weight: 600; }
+
+        .roadmap-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+        .roadmap-steps { display: flex; gap: 0; margin-top: 18px; overflow-x: auto; padding-bottom: 8px; }
+        .roadmap-step {
+            flex-shrink: 0;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        .roadmap-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 1rem;
+        }
+        .roadmap-step .step-icon { font-size: 1.8rem; margin-bottom: 6px; display: block; }
+        .roadmap-step .step-label { font-size: 0.72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .roadmap-step .step-name { font-size: 0.85rem; font-weight: 600; margin-top: 3px; }
+
+        .tab-row { display: flex; gap: 6px; margin-bottom: 20px; }
+        .tab-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: rgba(99,179,237,0.1);
+            border-color: rgba(99,179,237,0.3);
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="sidebar-logo" href="dashboard.html">
+        <div class="sidebar-logo-icon">⚡</div>
+        <div class="sidebar-logo-text">Skill<span>Sync</span></div>
+    </a>
+    <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link"><span class="nav-icon">📊</span> AI Analysis</a>
+        <a href="hackathons.html" class="nav-link"><span class="nav-icon">🏆</span> Hackathons</a>
+        <a href="jobs.html" class="nav-link"><span class="nav-icon">💼</span> Opportunities</a>
+        <a href="courses.html" class="nav-link active"><span class="nav-icon">📚</span> Upskilling</a>
+    </nav>
+    <div class="sidebar-bottom"><a href="#" class="upgrade-btn">✨ Upgrade to Pro</a></div>
+</aside>
+
+<main class="main">
+    <div class="topbar">
+        <div class="topbar-title">Curated Learning</div>
+        <div class="topbar-actions">
+            <select class="filter-select" id="cat-filter" onchange="filterCourses()">
+                <option value="all">All Categories</option>
+                <option value="dsa">DSA / Algorithms</option>
+                <option value="backend">Backend Dev</option>
+                <option value="ml">ML / Data</option>
+                <option value="android">Android</option>
+                <option value="cloud">Cloud / DevOps</option>
+            </select>
+            <div class="profile-wrap">
+                <div class="profile-avatar"></div>
+                <div class="profile-dropdown">
+                    <div class="drop-header">
+                        <div class="drop-name" data-user-name>Guest</div>
+                        <div class="drop-role" data-user-role>Engineer</div>
+                    </div>
+                    <hr>
+                    <a href="login.html" class="drop-link danger">🚪 Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-content">
+
+        <!-- Roadmap Section -->
+        <div class="roadmap-card fade-up d1">
+            <div class="card-title" style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;">🗺️ Your Learning Roadmap — Backend Engineer Track</div>
+            <div class="roadmap-steps">
+                <div class="roadmap-step">
+                    <span class="step-icon">🧮</span>
+                    <div class="step-label">Step 1</div>
+                    <div class="step-name">DSA Fundamentals</div>
+                </div>
+                <div class="roadmap-step">
+                    <span class="step-icon">🐍</span>
+                    <div class="step-label">Step 2</div>
+                    <div class="step-name">Python / Java Mastery</div>
+                </div>
+                <div class="roadmap-step">
+                    <span class="step-icon">🗄️</span>
+                    <div class="step-label">Step 3</div>
+                    <div class="step-name">Databases & SQL</div>
+                </div>
+                <div class="roadmap-step">
+                    <span class="step-icon">🔌</span>
+                    <div class="step-label">Step 4</div>
+                    <div class="step-name">APIs & Microservices</div>
+                </div>
+                <div class="roadmap-step">
+                    <span class="step-icon">☁️</span>
+                    <div class="step-label">Step 5</div>
+                    <div class="step-name">Cloud & DevOps</div>
+                </div>
+                <div class="roadmap-step">
+                    <span class="step-icon">🏗️</span>
+                    <div class="step-label">Step 6</div>
+                    <div class="step-name">System Design</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="tab-row fade-up d2">
+            <button class="tab-btn active" onclick="setTab(this,'all')">All</button>
+            <button class="tab-btn" onclick="setTab(this,'dsa')">DSA</button>
+            <button class="tab-btn" onclick="setTab(this,'backend')">Backend</button>
+            <button class="tab-btn" onclick="setTab(this,'ml')">ML / Data</button>
+            <button class="tab-btn" onclick="setTab(this,'android')">Android</button>
+            <button class="tab-btn" onclick="setTab(this,'cloud')">Cloud</button>
+        </div>
+
+        <div class="grid-auto" id="courses-grid">
+
+            <div class="card course-card fade-up d2" data-cat="dsa">
+                <div class="card-title">Data Structures & Algorithms in Java</div>
+                <div class="provider">📦 Udemy · Online · 40 hrs</div>
+                <div class="desc">Master arrays, trees, graphs and dynamic programming patterns to ace FAANG-level interviews.</div>
+                <div class="meta-row">
+                    <span class="badge badge-blue">Beginner → Advanced</span>
+                    <span class="badge badge-green">Certificate</span>
+                </div>
+                <div class="action-row">
+                    <button class="btn-primary">Enroll Now</button>
+                    <span class="rating">⭐ 4.8 (12k reviews)</span>
+                </div>
+            </div>
+
+            <div class="card course-card fade-up d3" data-cat="dsa">
+                <div class="card-title">Pune Tech Hub: Offline DSA Bootcamp</div>
+                <div class="provider">🏫 Local Class · Deccan Gymkhana, Pune</div>
+                <div class="desc">In-person whiteboard practice and live mock interviews. Great for building speed and accuracy.</div>
+                <div class="meta-row">
+                    <span class="badge badge-orange">On-site</span>
+                    <span class="badge badge-purple">Weekend Batch</span>
+                </div>
+                <div class="action-row">
+                    <button class="btn-primary">View Schedule</button>
+                    <span class="rating">⭐ 4.6 (local)</span>
+                </div>
+            </div>
+
+            <div class="card course-card fade-up d3" data-cat="backend">
+                <div class="card-title">Spring Boot Microservices Masterclass</div>
+                <div class="provider">📦 Udemy · Online · 30 hrs</div>
+                <div class="desc">Build production-ready REST APIs and microservices using Spring Boot, JPA, and Docker.</div>
+                <div class="meta-row">
+                    <span class="badge badge-blue">Intermediate</span>
+                    <span class="badge badge-green">Certificate</span>
+                </div>
+                <div class="action-row">
+                    <button class="btn-primary">Enroll Now</button>
+                    <span class="rating">⭐ 4.7 (8k reviews)</span>
+                </div>
+            </div>
+
+            <div class="card course-card fade-up d4" data-cat="ml">
+                <div class="card-title">Machine Learning A–Z (Python & R)</div>
+                <div class="provider">📦 Coursera · Online · 44 hrs</div>
+                <div class="desc">From regression to deep learning. Covers scikit-learn, TensorFlow and real-world datasets.</div>
+                <div class="meta-row">
+                    <span class="badge badge-blue">Beginner</span>
+                    <span class="badge badge-green">Certificate</span>
+                </div>
+                <div class="action-row">
+                    <button class="btn-primary">Enroll Now</button>
+                    <span class="rating">⭐ 4.5 (18k reviews)</span>
+                </div>
+            </div>
+
+            <div class="card course-card fade-up d4" data-cat="android">
+                <div class="card-title">Android Development with Kotlin</div>
+                <div class="provider">📦 Google Codelabs · Free · 25 hrs</div>
+                <div class="desc">Official Google path — build real apps using Jetpack Compose, Room DB, and Material Design 3.</div>
+                <div class="meta-row">
+                    <span class="badge badge-green">Free</span>
+                    <span class="badge badge-blue">Beginner → Mid</span>
+                </div>
+                <div class="action-row">
+                    <button class="btn-primary">Start Learning</button>
+                    <span class="rating">⭐ Official Google</span>
+                </div>
+            </div>
+
+            <div class="card course-card fade-up d5" data-cat="cloud">
+                <div class="card-title">AWS Solutions Architect — Associate</div>
+                <div class="provider">📦 AWS Skill Builder · Online · 40 hrs</div>
+                <div class="desc">Covers EC2, S3, Lambda, VPC, and IAM. Industry's most recognised cloud certification.</div>
+                <div class="meta-row">
+                    <span class="badge badge-orange">Intermediate</span>
+                    <span class="badge badge-purple">Paid Cert</span>
+                </div>
+                <div class="action-row">
+                    <button class="btn-primary">View Path</button>
+                    <span class="rating">⭐ 4.9 (industry standard)</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<script src="static/script.js"></script>
+<script>
+let activeTab = 'all';
+
+function setTab(btn, cat) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTab = cat;
+    filterCourses();
+}
+
+function filterCourses() {
+    const selectCat = document.getElementById('cat-filter').value;
+    const cards = document.querySelectorAll('#courses-grid .course-card');
+    cards.forEach(c => {
+        const cardCat = c.dataset.cat;
+        const tabOk    = activeTab === 'all' || cardCat === activeTab;
+        const selectOk = selectCat === 'all' || cardCat === selectCat;
+        c.style.display = (tabOk && selectOk) ? '' : 'none';
+    });
+
+    // Sync select with tab
+    if (activeTab !== 'all') {
+        document.getElementById('cat-filter').value = activeTab;
+    }
+}
+</script>
+</body>
+</html>

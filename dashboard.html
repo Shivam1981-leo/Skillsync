@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — SkillSync</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* ── Dashboard-specific layout tweaks ── */
+        .score-row   { display: grid; grid-template-columns: 220px 1fr; gap: 20px; margin-bottom: 20px; }
+        .bottom-row  { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .recs-row    { margin-bottom: 20px; }
+
+        /* Score card center */
+        .score-center { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .score-status { margin-top: 12px; font-size: 0.85rem; }
+
+        /* JD textarea */
+        .jd-area {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px 14px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .jd-area:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        .jd-area::placeholder { color: var(--muted); }
+
+        /* Stat mini cards */
+        .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+        .stat-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+        .stat-value { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; }
+        .stat-value.green { color: var(--green); }
+        .stat-value.blue  { color: var(--accent); }
+        .stat-value.purple{ color: var(--accent2); }
+    </style>
+</head>
+<body>
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar">
+    <a class="sidebar-logo" href="dashboard.html">
+        <div class="sidebar-logo-icon">⚡</div>
+        <div class="sidebar-logo-text">Skill<span>Sync</span></div>
+    </a>
+
+    <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link active">
+            <span class="nav-icon">📊</span> AI Analysis
+        </a>
+        <a href="hackathons.html" class="nav-link">
+            <span class="nav-icon">🏆</span> Hackathons
+        </a>
+        <a href="jobs.html" class="nav-link">
+            <span class="nav-icon">💼</span> Opportunities
+        </a>
+        <a href="courses.html" class="nav-link">
+            <span class="nav-icon">📚</span> Upskilling
+        </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <a href="#" class="upgrade-btn">✨ Upgrade to Pro</a>
+    </div>
+</aside>
+
+<!-- ── Main ── -->
+<main class="main">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div class="topbar-title">Analysis Report</div>
+        <div class="topbar-actions">
+            <!-- Hidden file input -->
+            <input type="file" id="resume-upload" accept=".pdf">
+            <label for="resume-upload" class="btn-primary" id="upload-label" style="cursor:pointer;">📄 Upload Resume</label>
+
+            <div class="profile-wrap">
+                <div class="profile-avatar" title="Profile"></div>
+                <div class="profile-dropdown">
+                    <div class="drop-header">
+                        <div class="drop-name" data-user-name>Guest User</div>
+                        <div class="drop-role" data-user-role>Engineer</div>
+                    </div>
+                    <hr>
+                    <a href="#" class="drop-link">⚙️ Settings</a>
+                    <a href="#" class="drop-link">📄 Saved Resumes</a>
+                    <a href="#" class="drop-link">💳 Subscription</a>
+                    <hr>
+                    <a href="login.html" class="drop-link danger">🚪 Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content">
+
+        <!-- Stat mini cards -->
+        <div class="stat-row fade-up d1">
+            <div class="stat-card">
+                <div class="stat-label">Overall Score</div>
+                <div class="stat-value green" id="score-mini">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Strengths Found</div>
+                <div class="stat-value blue" id="strengths-count">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">ATS Status</div>
+                <div class="stat-value purple" id="ats-badge">Pending</div>
+            </div>
+        </div>
+
+        <!-- Score + Radar -->
+        <div class="score-row fade-up d2">
+            <!-- Score ring -->
+            <div class="card score-center">
+                <div class="card-title">Overall Match</div>
+                <svg viewBox="0 0 36 36" class="ring-svg">
+                    <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="ring-fill green" id="score-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text x="18" y="20.35" class="ring-pct" id="score-text">0%</text>
+                </svg>
+                <div class="score-status" id="status-text">
+                    <span class="tag">Upload a resume to begin</span>
+                </div>
+            </div>
+
+            <!-- Radar chart -->
+            <div class="card fade-up d2">
+                <div class="card-title">🕸️ Skill Shape — Your Profile vs Ideal</div>
+                <div style="max-height: 240px; display:flex; justify-content:center;">
+                    <canvas id="skillChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional JD input -->
+        <div class="card recs-row fade-up d3" style="margin-bottom:20px;">
+            <div class="card-title">📋 Paste Job Description (optional — boosts accuracy)</div>
+            <textarea id="job-description" class="jd-area" placeholder="Paste the job description here for a more accurate match score..."></textarea>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="card recs-row fade-up d3">
+            <div class="card-title">💡 AI Project Recommendations</div>
+            <ul class="data-list blue" id="recs-list">
+                <li>Upload your resume above to generate a personalised improvement roadmap.</li>
+            </ul>
+        </div>
+
+        <!-- Strengths + Gaps -->
+        <div class="bottom-row fade-up d4">
+            <div class="card" style="grid-column: 1 / 2;">
+                <div class="card-title">🟢 Verified Strengths</div>
+                <div class="badge-wrap" id="strengths-list">
+                    <span class="badge badge-blue">Awaiting scan...</span>
+                </div>
+            </div>
+            <div class="card" style="grid-column: 2 / 3;">
+                <div class="card-title">🔴 Skill Gaps</div>
+                <div class="badge-wrap" id="weak-list">
+                    <span class="badge badge-blue">Awaiting scan...</span>
+                </div>
+            </div>
+            <div class="card fade-up d5" style="grid-column: 3 / 4;">
+                <div class="card-title">📈 Tips</div>
+                <ul class="data-list" style="font-size:0.84rem;">
+                    <li style="border-left-color:var(--accent)">Tailor keywords to each JD</li>
+                    <li style="border-left-color:var(--accent)">Quantify achievements (numbers!)</li>
+                    <li style="border-left-color:var(--accent)">Add GitHub / portfolio links</li>
+                    <li style="border-left-color:var(--accent)">Keep resume under 2 pages</li>
+                </ul>
+            </div>
+        </div>
+
+    </div><!-- /page-content -->
+</main>
+
+<script src="static/script.js"></script>
+<script>
+// Extend uploadResume to also update mini-stats
+const _origUpload = window.uploadResume;
+window.uploadResume = async function() {
+    await _origUpload.call(this);
+    // These will be updated after the fetch inside script.js
+};
+
+// Patch: intercept fetch response to update mini-stats
+const origFetch = window.fetch;
+window.fetch = async function(...args) {
+    const res = await origFetch(...args);
+    if (args[0]?.includes('/api/upload')) {
+        const clone = res.clone();
+        clone.json().then(data => {
+            const score = data.match_score;
+            if (score != null) {
+                document.getElementById('score-mini').textContent = score + '%';
+                document.getElementById('strengths-count').textContent = (data.strengths?.length || 0);
+                document.getElementById('ats-badge').textContent = data.status || '—';
+            }
+        }).catch(() => {});
+    }
+    return res;
+};
+</script>
+</body>
+</html>

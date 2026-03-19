@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunities — SkillSync</title>
+    <link rel="stylesheet" href="static/style.css">
+    <style>
+        .job-card .company { font-size: 0.82rem; color: var(--muted); margin-bottom: 10px; }
+        .job-card .skills-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+        .match-bar-wrap { margin-bottom: 16px; }
+        .match-bar-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 6px; }
+        .match-bar-track { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+        .match-bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+        .match-bar-fill.high   { background: linear-gradient(90deg, var(--green), #22d3ee); }
+        .match-bar-fill.medium { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+        .match-bar-fill.low    { background: linear-gradient(90deg, var(--red), var(--orange)); }
+
+        .job-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+        .job-actions { display: flex; gap: 10px; }
+
+        .search-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        .search-input {
+            padding: 10px 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.88rem;
+            outline: none;
+            width: 220px;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: var(--accent); }
+        .search-input::placeholder { color: var(--muted); }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="sidebar-logo" href="dashboard.html">
+        <div class="sidebar-logo-icon">⚡</div>
+        <div class="sidebar-logo-text">Skill<span>Sync</span></div>
+    </a>
+    <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link"><span class="nav-icon">📊</span> AI Analysis</a>
+        <a href="hackathons.html" class="nav-link"><span class="nav-icon">🏆</span> Hackathons</a>
+        <a href="jobs.html" class="nav-link active"><span class="nav-icon">💼</span> Opportunities</a>
+        <a href="courses.html" class="nav-link"><span class="nav-icon">📚</span> Upskilling</a>
+    </nav>
+    <div class="sidebar-bottom"><a href="#" class="upgrade-btn">✨ Upgrade to Pro</a></div>
+</aside>
+
+<main class="main">
+    <div class="topbar">
+        <div class="topbar-title">Jobs & Internships</div>
+        <div class="topbar-actions">
+            <div class="search-row">
+                <input type="text" class="search-input" id="job-search" placeholder="🔍 Search roles..." oninput="searchJobs()">
+                <select class="filter-select" id="job-type-filter" onchange="searchJobs()">
+                    <option value="all">All Types</option>
+                    <option value="internship">Internship</option>
+                    <option value="fulltime">Full-time</option>
+                    <option value="remote">Remote</option>
+                </select>
+            </div>
+            <div class="profile-wrap">
+                <div class="profile-avatar"></div>
+                <div class="profile-dropdown">
+                    <div class="drop-header">
+                        <div class="drop-name" data-user-name>Guest</div>
+                        <div class="drop-role" data-user-role>Engineer</div>
+                    </div>
+                    <hr>
+                    <a href="login.html" class="drop-link danger">🚪 Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="section-label fade-up d1" id="jobs-count">5 opportunities found</div>
+
+        <div class="grid-auto" id="jobs-grid">
+
+            <div class="card job-card fade-up d1" data-type="internship" data-title="android app developer intern">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+                    <div style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;">Android Developer Intern</div>
+                    <span class="badge badge-green">85% match</span>
+                </div>
+                <div class="company">TechInnovate Solutions · Pune, Maharashtra · On-site</div>
+                <div class="job-meta">
+                    <span class="tag">Internship</span>
+                    <span class="tag">₹15,000/mo</span>
+                    <span class="tag">3 months</span>
+                </div>
+                <div class="skills-row">
+                    <span class="badge badge-blue">Java</span>
+                    <span class="badge badge-blue">Android Studio</span>
+                    <span class="badge badge-purple">REST APIs</span>
+                </div>
+                <div class="match-bar-wrap">
+                    <div class="match-bar-label"><span>Profile Match</span><span>85%</span></div>
+                    <div class="match-bar-track"><div class="match-bar-fill high" style="width:85%"></div></div>
+                </div>
+                <div class="job-actions">
+                    <button class="btn-primary">⚡ Easy Apply</button>
+                    <button class="btn-ghost">Save</button>
+                </div>
+            </div>
+
+            <div class="card job-card fade-up d2" data-type="fulltime" data-title="c++ systems engineer backend">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+                    <div style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;">C++ Systems Engineer</div>
+                    <span class="badge badge-blue">72% match</span>
+                </div>
+                <div class="company">Global Finance Tech · Pune / Hybrid</div>
+                <div class="job-meta">
+                    <span class="tag">Full-time</span>
+                    <span class="tag">₹12–18 LPA</span>
+                    <span class="tag">Hybrid</span>
+                </div>
+                <div class="skills-row">
+                    <span class="badge badge-red">C++</span>
+                    <span class="badge badge-purple">Multi-threading</span>
+                    <span class="badge badge-blue">Data Structures</span>
+                </div>
+                <div class="match-bar-wrap">
+                    <div class="match-bar-label"><span>Profile Match</span><span>72%</span></div>
+                    <div class="match-bar-track"><div class="match-bar-fill medium" style="width:72%"></div></div>
+                </div>
+                <div class="job-actions">
+                    <button class="btn-primary">View Application</button>
+                    <button class="btn-ghost">Save</button>
+                </div>
+            </div>
+
+            <div class="card job-card fade-up d3" data-type="remote" data-title="backend python django engineer remote">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+                    <div style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;">Python Backend Engineer</div>
+                    <span class="badge badge-green">79% match</span>
+                </div>
+                <div class="company">StartupX · Remote · Pan-India</div>
+                <div class="job-meta">
+                    <span class="tag">Full-time</span>
+                    <span class="tag">Remote</span>
+                    <span class="tag">₹10–15 LPA</span>
+                </div>
+                <div class="skills-row">
+                    <span class="badge badge-green">Python</span>
+                    <span class="badge badge-blue">Django</span>
+                    <span class="badge badge-purple">PostgreSQL</span>
+                    <span class="badge badge-blue">Docker</span>
+                </div>
+                <div class="match-bar-wrap">
+                    <div class="match-bar-label"><span>Profile Match</span><span>79%</span></div>
+                    <div class="match-bar-track"><div class="match-bar-fill high" style="width:79%"></div></div>
+                </div>
+                <div class="job-actions">
+                    <button class="btn-primary">⚡ Easy Apply</button>
+                    <button class="btn-ghost">Save</button>
+                </div>
+            </div>
+
+            <div class="card job-card fade-up d4" data-type="internship" data-title="data analyst intern ml machine learning">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+                    <div style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;">Data Analyst Intern</div>
+                    <span class="badge badge-orange">58% match</span>
+                </div>
+                <div class="company">Analytics Co. · Bangalore / Remote</div>
+                <div class="job-meta">
+                    <span class="tag">Internship</span>
+                    <span class="tag">₹20,000/mo</span>
+                    <span class="tag">6 months</span>
+                </div>
+                <div class="skills-row">
+                    <span class="badge badge-blue">Python</span>
+                    <span class="badge badge-purple">Pandas</span>
+                    <span class="badge badge-green">SQL</span>
+                    <span class="badge badge-blue">Tableau</span>
+                </div>
+                <div class="match-bar-wrap">
+                    <div class="match-bar-label"><span>Profile Match</span><span>58%</span></div>
+                    <div class="match-bar-track"><div class="match-bar-fill low" style="width:58%"></div></div>
+                </div>
+                <div class="job-actions">
+                    <button class="btn-primary">Apply</button>
+                    <button class="btn-ghost">Save</button>
+                </div>
+            </div>
+
+            <div class="card job-card fade-up d5" data-type="fulltime" data-title="devops cloud engineer aws">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+                    <div style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;">DevOps Engineer</div>
+                    <span class="badge badge-blue">65% match</span>
+                </div>
+                <div class="company">CloudFirst · Hyderabad / Hybrid</div>
+                <div class="job-meta">
+                    <span class="tag">Full-time</span>
+                    <span class="tag">₹14–20 LPA</span>
+                    <span class="tag">Hybrid</span>
+                </div>
+                <div class="skills-row">
+                    <span class="badge badge-orange">AWS</span>
+                    <span class="badge badge-blue">Docker</span>
+                    <span class="badge badge-purple">Kubernetes</span>
+                    <span class="badge badge-green">CI/CD</span>
+                </div>
+                <div class="match-bar-wrap">
+                    <div class="match-bar-label"><span>Profile Match</span><span>65%</span></div>
+                    <div class="match-bar-track"><div class="match-bar-fill medium" style="width:65%"></div></div>
+                </div>
+                <div class="job-actions">
+                    <button class="btn-primary">Apply</button>
+                    <button class="btn-ghost">Save</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<script src="static/script.js"></script>
+<script>
+function searchJobs() {
+    const query = document.getElementById('job-search').value.toLowerCase().trim();
+    const type  = document.getElementById('job-type-filter').value;
+    const cards = document.querySelectorAll('#jobs-grid .job-card');
+    let visible = 0;
+    cards.forEach(c => {
+        const titleMatch = !query || c.dataset.title?.includes(query);
+        const typeMatch  = type === 'all' || c.dataset.type === type;
+        const show = titleMatch && typeMatch;
+        c.style.display = show ? '' : 'none';
+        if (show) visible++;
+    });
+    document.getElementById('jobs-count').textContent = `${visible} opportunit${visible !== 1 ? 'ies' : 'y'} found`;
+}
+</script>
+</body>
+</html>

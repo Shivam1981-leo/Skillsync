@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathons — SkillSync</title>
+    <link rel="stylesheet" href="static/style.css">
+    <style>
+        .hack-card { cursor: default; }
+        .hack-card .organiser { font-size: 0.8rem; color: var(--muted); margin-bottom: 14px; }
+        .hack-card .focus-tag { margin-bottom: 16px; }
+        .hack-card .deadline {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: var(--orange);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        .hack-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+        .hack-name { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; }
+
+        .filter-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .filter-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="sidebar-logo" href="dashboard.html">
+        <div class="sidebar-logo-icon">⚡</div>
+        <div class="sidebar-logo-text">Skill<span>Sync</span></div>
+    </a>
+    <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link"><span class="nav-icon">📊</span> AI Analysis</a>
+        <a href="hackathons.html" class="nav-link active"><span class="nav-icon">🏆</span> Hackathons</a>
+        <a href="jobs.html" class="nav-link"><span class="nav-icon">💼</span> Opportunities</a>
+        <a href="courses.html" class="nav-link"><span class="nav-icon">📚</span> Upskilling</a>
+    </nav>
+    <div class="sidebar-bottom"><a href="#" class="upgrade-btn">✨ Upgrade to Pro</a></div>
+</aside>
+
+<main class="main">
+    <div class="topbar">
+        <div class="topbar-title">Active Hackathons</div>
+        <div class="topbar-actions">
+            <div class="filter-row">
+                <span class="filter-label">Filter by:</span>
+                <select id="org-filter" class="filter-select" onchange="filterCards('org-filter','[data-org]','org')">
+                    <option value="all">All Organisers</option>
+                    <option value="gov">Government of India</option>
+                    <option value="google">Google</option>
+                    <option value="meta">Meta</option>
+                    <option value="amazon">Amazon</option>
+                    <option value="microsoft">Microsoft</option>
+                </select>
+                <select id="type-filter" class="filter-select" onchange="filterCards('type-filter','[data-type]','type')">
+                    <option value="all">All Types</option>
+                    <option value="online">Online</option>
+                    <option value="hybrid">Hybrid</option>
+                    <option value="onsite">On-site</option>
+                </select>
+            </div>
+
+            <div class="profile-wrap">
+                <div class="profile-avatar"></div>
+                <div class="profile-dropdown">
+                    <div class="drop-header">
+                        <div class="drop-name" data-user-name>Guest</div>
+                        <div class="drop-role" data-user-role>Engineer</div>
+                    </div>
+                    <hr>
+                    <a href="#" class="drop-link">⚙️ Settings</a>
+                    <a href="#" class="drop-link">📄 Saved Resumes</a>
+                    <hr>
+                    <a href="login.html" class="drop-link danger">🚪 Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="section-label fade-up d1">6 competitions found</div>
+
+        <div class="grid-auto" id="hack-grid">
+
+            <div class="card hack-card fade-up d1" data-org="gov" data-type="hybrid">
+                <div class="hack-header">
+                    <div class="hack-name">Smart India Hackathon (SIH)</div>
+                    <span class="badge badge-orange">Gov</span>
+                </div>
+                <div class="organiser">Government of India · Hardware & Software Edition</div>
+                <div class="focus-tag">
+                    <span class="badge badge-purple">AI/ML</span>
+                    <span class="badge badge-blue">IoT</span>
+                    <span class="badge badge-green">Sustainability</span>
+                </div>
+                <div class="deadline">⏰ Deadline: Approaching · Hybrid</div>
+                <button class="btn-primary" style="width:100%;" onclick="window.open('https://www.sih.gov.in','_blank')">Register Team →</button>
+            </div>
+
+            <div class="card hack-card fade-up d2" data-org="google" data-type="online">
+                <div class="hack-header">
+                    <div class="hack-name">Google Solution Challenge</div>
+                    <span class="badge badge-blue">Google</span>
+                </div>
+                <div class="organiser">Google · Open to University Students Worldwide</div>
+                <div class="focus-tag">
+                    <span class="badge badge-green">Android</span>
+                    <span class="badge badge-blue">AI</span>
+                    <span class="badge badge-purple">UN SDGs</span>
+                </div>
+                <div class="deadline">⏰ Submissions Open · Online</div>
+                <button class="btn-primary" style="width:100%;" onclick="window.open('https://developers.google.com/community/gdsc-solution-challenge','_blank')">View Details →</button>
+            </div>
+
+            <div class="card hack-card fade-up d3" data-org="meta" data-type="online">
+                <div class="hack-header">
+                    <div class="hack-name">Meta Hacker Cup</div>
+                    <span class="badge badge-purple">Meta</span>
+                </div>
+                <div class="organiser">Meta · Global Algorithmic Challenge</div>
+                <div class="focus-tag">
+                    <span class="badge badge-red">Algorithms</span>
+                    <span class="badge badge-blue">Data Structures</span>
+                </div>
+                <div class="deadline">⏰ Rounds ongoing · Online</div>
+                <button class="btn-primary" style="width:100%;" onclick="window.open('https://www.facebook.com/codingcompetitions/hacker-cup','_blank')">Compete →</button>
+            </div>
+
+            <div class="card hack-card fade-up d4" data-org="amazon" data-type="online">
+                <div class="hack-header">
+                    <div class="hack-name">Amazon Alexa Prize</div>
+                    <span class="badge badge-orange">Amazon</span>
+                </div>
+                <div class="organiser">Amazon · Conversational AI Challenge</div>
+                <div class="focus-tag">
+                    <span class="badge badge-blue">NLP</span>
+                    <span class="badge badge-green">Voice AI</span>
+                    <span class="badge badge-purple">ML</span>
+                </div>
+                <div class="deadline">⏰ Applications Open · Online</div>
+                <button class="btn-primary" style="width:100%;" onclick="window.open('https://developer.amazon.com/alexaprize','_blank')">Apply Now →</button>
+            </div>
+
+            <div class="card hack-card fade-up d5" data-org="microsoft" data-type="online">
+                <div class="hack-header">
+                    <div class="hack-name">Microsoft Imagine Cup</div>
+                    <span class="badge badge-blue">Microsoft</span>
+                </div>
+                <div class="organiser">Microsoft · Global Student Tech Competition</div>
+                <div class="focus-tag">
+                    <span class="badge badge-green">Azure AI</span>
+                    <span class="badge badge-purple">Cloud</span>
+                    <span class="badge badge-blue">Startup</span>
+                </div>
+                <div class="deadline">⏰ Registration Open · Online</div>
+                <button class="btn-primary" style="width:100%;" onclick="window.open('https://imaginecup.microsoft.com','_blank')">Register →</button>
+            </div>
+
+            <div class="card hack-card fade-up d6" data-org="gov" data-type="onsite">
+                <div class="hack-header">
+                    <div class="hack-name">Kavach Cybersecurity Hackathon</div>
+                    <span class="badge badge-orange">Gov</span>
+                </div>
+                <div class="organiser">MHA · Bureau of Police Research & Development</div>
+                <div class="focus-tag">
+                    <span class="badge badge-red">Cybersecurity</span>
+                    <span class="badge badge-purple">Forensics</span>
+                </div>
+                <div class="deadline">⏰ Upcoming · On-site</div>
+                <button class="btn-primary" style="width:100%;" onclick="window.open('https://kavach.mic.gov.in','_blank')">View Details →</button>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<script src="static/script.js"></script>
+<script>
+// Multi-attribute filter: filter by both org and type simultaneously
+function filterCards(selectId, sel, attr) {
+    const orgVal  = document.getElementById('org-filter').value;
+    const typeVal = document.getElementById('type-filter').value;
+
+    document.querySelectorAll('#hack-grid .hack-card').forEach(card => {
+        const orgOk  = (orgVal  === 'all' || card.dataset.org  === orgVal);
+        const typeOk = (typeVal === 'all' || card.dataset.type === typeVal);
+        card.style.display = (orgOk && typeOk) ? '' : 'none';
+    });
+
+    // Update count
+    const visible = document.querySelectorAll('#hack-grid .hack-card:not([style*="none"])').length;
+    document.querySelector('.section-label').textContent = `${visible} competition${visible !== 1 ? 's' : ''} found`;
+}
+</script>
+</body>
+</html>

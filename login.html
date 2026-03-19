@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSync — Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #04050a;
+            --surface: rgba(255,255,255,0.04);
+            --surface-hover: rgba(255,255,255,0.07);
+            --border: rgba(255,255,255,0.08);
+            --border-glow: rgba(99,179,237,0.5);
+            --text: #f0f4ff;
+            --muted: #6b7a99;
+            --accent: #63b3ed;
+            --accent2: #a78bfa;
+            --green: #4ade80;
+            --red: #f87171;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Animated grid background */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridShift 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes gridShift {
+            0% { transform: translate(0,0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99,179,237,0.08) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            pointer-events: none;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%,-50%) scale(1.1); opacity: 0.7; }
+        }
+
+        .login-wrap {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+            animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo-text span { color: var(--accent); }
+
+        .logo-sub {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03) inset;
+        }
+
+        .card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .card-sub {
+            color: var(--muted);
+            font-size: 0.88rem;
+            margin-bottom: 28px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 13px 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            outline: none;
+        }
+
+        .field input::placeholder { color: var(--muted); }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--accent);
+            background: rgba(99,179,237,0.06);
+            box-shadow: 0 0 0 3px rgba(99,179,237,0.12);
+        }
+
+        .field select option {
+            background: #1a1d2e;
+            color: var(--text);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--accent), #4f9fe8);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99,179,237,0.4);
+        }
+
+        .btn:active { transform: translateY(0); }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(255,255,255,0.1), transparent);
+            pointer-events: none;
+        }
+
+        .features {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .feature {
+            flex: 1;
+            text-align: center;
+            padding: 14px 8px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .feature .icon { font-size: 1.3rem; display: block; margin-bottom: 6px; }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <div class="login-wrap">
+        <div class="logo">
+            <div class="logo-mark">
+                <div class="logo-icon">⚡</div>
+                <div class="logo-text">Skill<span>Sync</span></div>
+            </div>
+            <div class="logo-sub">AI-powered resume intelligence platform</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Welcome back</div>
+            <div class="card-sub">Enter your details to calibrate your AI dashboard</div>
+
+            <form id="login-form">
+                <div class="field">
+                    <label>Full Name</label>
+                    <input type="text" id="fname" placeholder="e.g. Shivam Sharma" required>
+                </div>
+                <div class="field">
+                    <label>City / Location</label>
+                    <input type="text" id="flocation" placeholder="e.g. Pune, Maharashtra" required>
+                </div>
+                <div class="field">
+                    <label>Target Job Role</label>
+                    <select id="frole" required>
+                        <option value="" disabled selected>Select your path...</option>
+                        <option value="backend">Backend Engineer (Java / C++)</option>
+                        <option value="android">Android App Developer</option>
+                        <option value="data">Data Analyst / ML Engineer</option>
+                        <option value="frontend">Frontend / Web Developer</option>
+                        <option value="devops">DevOps / Cloud Engineer</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn" id="submit-btn">Enter Dashboard →</button>
+            </form>
+        </div>
+
+        <div class="features">
+            <div class="feature"><span class="icon">🧠</span>AI Resume Analysis</div>
+            <div class="feature"><span class="icon">🏆</span>Hackathons</div>
+            <div class="feature"><span class="icon">💼</span>Job Matches</div>
+            <div class="feature"><span class="icon">📚</span>Courses</div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('fname').value.trim();
+            const location = document.getElementById('flocation').value.trim();
+            const role = document.getElementById('frole').value;
+
+            if (!name || !location || !role) return;
+
+            // Save to sessionStorage so dashboard can read it
+            sessionStorage.setItem('ss_name', name);
+            sessionStorage.setItem('ss_location', location);
+            sessionStorage.setItem('ss_role', role);
+
+            const btn = document.getElementById('submit-btn');
+            btn.innerHTML = 'Initializing AI... ⏳';
+            btn.style.opacity = '0.8';
+
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 800);
+        });
+    </script>
+</body>
+</html>
